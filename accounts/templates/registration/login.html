@@ -1,0 +1,41 @@
+{% extends 'blog/base.xhtml' %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block page_header %}
+  <p class="bcg_color_text mb-0 display-5 text-center"> Erand </p>
+{% endblock page_header %}
+
+{% block content %}
+<div class="container justify-content-md-center">
+  <form action="{% url 'accounts:login' %}" method='post'>
+    {% csrf_token %}
+    <div>
+      <div class="container py-1">
+        <div class="row justify-content-center py-2">
+          <label class="col-sm-2 mx-2 my-2 text-center" id="id_username">Username</label>
+          <input class="col-sm-3 mx-1 my-2 rounded-3 border-1" type="text" placeholder="Username" name="username" id="id_username">
+        </div>
+        <div class="row justify-content-center">
+          <label class="col-sm-2 mx-2 my-2 text-center  " id="id_Password">Password</label>
+          <input class="col-sm-3 mx-1 my-2 rounded-3 border-1" type="password" placeholder="Password" name="password" id="id_Password">
+        </div>
+      </div>
+      <div class="text-center my-4">
+        <button class="btn btn-lg border" name="submit">Login</button>
+      </div>
+    </div>
+  </form>
+  {% if form.errors %}
+  <div class="row justify-content-md-center">
+    <div class="alert alert-danger mt-3 text-center col-sm-8">
+      <strong>Error:</strong> Usuario o contraseña incorrectos. Inténtalo de nuevo.
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}
+
+{% block extrastyles %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock extrastyles %}

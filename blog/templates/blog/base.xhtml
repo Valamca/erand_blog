@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erand Blog</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <!-- Collection of templates tags from django-bootstrap5 
+  Loads the requered files to implement bootstrap styles-->
+  {% load django_bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+</head>
+
+<body class=" container font-type" > 
+    <nav class="navbar navbar-expand-lg rounded-3" aria-label="Eleventh navbar example">
+      <div class="container-fluid bar-color py-2 rounded-2">
+        <span class="navbar-brand white-text-color">Erand</span>
+        <button class="navbar-toggler" style="background-color: #F7F7F7;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link white-text-color" aria-current="page" href="{% url 'blog:index' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link white-text-color" href="{% url 'blog:topics' %}">Topics</a>
+            </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link white-text-color pb-0 my-topics" href="{% url 'blog:my_topics' %}"><i>My Topics</i></a>
+              </li> 
+            {% else %}
+              <a></a>
+            {% endif %}
+          </ul>
+          
+          {% if user.is_authenticated %}
+            <!--<form role="search" class="mx-auto">
+              <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            </form>-->
+          {% endif %}
+
+          <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+            {% if user.is_authenticated and user.is_superuser %}
+              <li class="nav-item d-flex align-items-center">
+                <span class="navbar-text me-3 text-white ">Hello, {{ user.username }}</span>
+              </li>
+              <li class="nav-item d-flex align-items-center me-2">
+                <a class="btn btn-sm border-secondary text-white" href='http://127.0.0.1:8000/admin'>Admin</a>
+              </li>
+            {% elif user.is_authenticated %}
+              <li class="nav-item d-flex align-items-center">
+                <!-- me-2 (Margin-End): gives a margin to the text -->
+                <span class="navbar-text me-2 white-text-color">Hello, {{ user.username }}.</span>
+              </li>
+            {% else %}
+              <li class="nav-item d-flex align-items-center">
+                <a class="nav-link" href="{% url 'accounts:register' %}" style="color: #F7F7F7; font-weight:lighter;">
+                    Register</a>
+              </li>
+              <li class="nav-item d-flex align-items-center ">
+                <a class="btn btn-sm border color_custom_1 btn-outline-secondary"  
+                  style="font-weight:lighter;" href="{% url 'accounts:login' %}">Login</a>
+              </li>
+            {% endif %}
+          </ul>
+
+          {% if user.is_authenticated %}
+            <form action="{% url 'accounts:logout' %}" method='post'>
+              {% csrf_token %}
+              <!-- We create a button with some configurations:
+              btn: indicates that we are styling a button
+              btn-outline-secondary: Apply a border and color styles
+              btn-sm: defines the size of the button: small -->
+              <button name='submit' class='btn btn-sm color_custom_1 '>
+                Log out</button>
+            </form>
+          {% endif %}
+
+        </div> <!-- Collapse bar-->
+      </div> <!-- container fluid-->
+    </nav> <!--nav bar--> 
+    <main class="container">
+      <div class="pb-2 mb-0 py-0">      
+      <script>
+        $(function () {
+          $('[data-toggle="popover"]').popover();
+        });
+      </script>
+      {% block page_header %}{% endblock page_header %}
+      </div>
+      <div>
+      {% block content %} {% endblock content %}
+      </div>
+      <div>
+      {% block extrastyles %} {% endblock extrastyles %}
+      </div>
+    </main>
+</body>
+</html>

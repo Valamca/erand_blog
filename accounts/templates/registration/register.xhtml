@@ -1,0 +1,99 @@
+{% extends "blog/base.xhtml" %}
+
+{% block page_header %}
+  <div>
+    <p class="display-5 text-center"> Erand </p>
+  </div>
+{% endblock page_header %}
+
+
+{% block content %}
+<form action="{% url 'accounts:register' %}" method="post">
+  {% csrf_token %}
+
+  <div class="py-2">
+    <div class="row justify-content-md-center">
+      <label class="col-sm-5" for="id_username"><strong> Username </strong></label>
+    </div>
+    <div class="row justify-content-end py-2">
+      <input class="col-sm-5 border-1 rounded py-1" type="text" placeholder="Username" name="username" id="id_username">
+      {% if not form.username.errors %}
+      <div class="col-sm-3 me-5">
+        <div class="form-text text-muted pl-0">
+            <p></p>
+        </div>
+      </div>
+      {% else %}
+      <div class="col-sm-3 me-5">
+          <div class="form-text text-muted pl-0">
+                <small class="text-danger">{{ form.username.errors }}</small>
+          </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="row justify-content-md-center">
+        <label class="col-sm-5" for="id_password1"><strong> Password</strong></label>
+    </div>
+    <div class="row justify-content-end py-2">
+      <input class="col-sm-5 border-1 rounded py-1" type="password" placeholder="Password" name="password1" id="id_password1">
+      {% if not form.password1.errors %}
+      <div class="col-sm-3 me-5">
+        <div class="form-text text-muted pl-0 ">
+            <p class="text-success"></p>
+        </div>
+      </div>
+      {% else %}
+      <div class="col-sm-3 me-5">
+          <div class="form-text text-muted pl-0">
+            <small class="text-danger">{{ form.password1.errors }}</small>
+          </div>  
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="row justify-content-md-center">
+        <label class="col-sm-5" for="id_password2"><strong> Password confirmation </strong></label>
+    </div>
+    <div class="row justify-content-end py-2">
+        <input class="col-sm-5 border-1 rounded py-1" type="password" placeholder="Password confirmation" name="password2" id="id_password2">
+        {% if not form.password2.errors %}
+        <div class="col-sm-3 me-5">
+          <div class="form-text text-muted pl-0 text-danger">
+              <p></p>
+          </div>
+        </div>
+        {% else %}
+        <div class="col-sm-3 me-5">
+          <div class="form-text text-muted pl-0">
+              <small class="text-danger"> {{ form.password2.errors }}</small>
+          </div>
+        </div>
+        {% endif %}
+    </div>
+  </div>
+
+  <div class="row justify-content-center py-2">
+    <div class="col-sm-5">
+      <ul class="ml-0">
+        <li>
+          <small class="text-muted">La contraseña debe contener al menos una letra mayúscula, una letra minúscula,  un número y un carácter especial.</small>
+        </li>
+        <li>
+          <small class="text-muted">La contraseña debe tener una longitud mínima de 8 caracteres.</small>
+        </li>
+        <li>
+          <small class="text-muted">La contraseña no debe ser común o estar relacionada con tus datos personales.</small>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="text-center">
+      <input class="btn btn-lg border border-2 rounded-2 py-2 px-4" style="color: #f7f7ff; background-color: #620808;" type="submit" name="submit" value="Register">
+  </div>
+</form>
+
+{% endblock content %}
+
+

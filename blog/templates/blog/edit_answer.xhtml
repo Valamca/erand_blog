@@ -1,0 +1,45 @@
+{% extends "blog/base.xhtml" %}
+
+{% block content %}
+{% load static %}
+
+<form action="{% url 'blog:edit_answer' answer.id %}" method="post">
+  {% csrf_token %}
+    <div class="row justify-content-center text-center">
+      <div>
+        <p> <b class="display-6">Answer: </b></p>
+      </div>
+
+      <div class="">
+        <label class="col-sm-6 text-center" for="id_answer_text">
+      </div>    
+      <div>
+        <textarea class="border-custom-lines" id="id_answer_text" name="answer_text"
+        style="resize: none; padding-left: 1%; padding-top: 1%; border: none; outline: none; " rows="10" 
+        cols="80">{{answer.answer_text}}</textarea>
+      </div>
+
+      <div class="col-sm-6">
+        <p><b> {{answer.answer_user|capfirst}}</b> - <i>{{answer.date_added}}</i> </p>
+      </div>
+      <div class="col-sm-8">
+        <button class="btn rounded-3 py-2 px-4" type="submit" id="btn_edit" name="edit_answer" style="background-color: #620808; color: #f7f7f7; border-color: #620808;">Edit</button>
+        <a class="btn border border-2 border-2 border-secondary btn-secondary py-2 px-4" name="cancel" id="id_cancel" href="{% url 'blog:topic' topic.id %}"> Cancel </a>
+      </div>
+    </div>
+</form>
+{% endblock content %}
+
+{% block extrastyles %}
+  <link rel="stylesheet" href="{% static 'css/new_answer.css' %}">
+{% endblock extrastyles %}
+
+<!--
+  <label id="id_answer_text"> Answer: </label> <br>
+  <textarea id="id_answer_text" name="answer_text" rows="10" cols="80">
+  {{answer.answer_text}}
+  </textarea> <br> <br>
+  <button name="submit"> 
+    Edit answer
+  </button>
+-->

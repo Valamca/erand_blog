@@ -1,0 +1,72 @@
+{% extends "blog/base.xhtml" %}
+
+{% block page_header %}
+  <h1 class="my-2" style="font-size: 2em;"><b>{{topic.post_title}} </b></h1>
+{% endblock page_header %}
+
+
+{% block content %}
+{% load static %}
+  
+  <div class="d-flex justify-content-between">   
+      <div >
+        <h2 class="text-post-header" style="font-size: 1.2em;">{{topic.post_text}}</h2>
+      <div> 
+    <div class="text-end user-name-date" style="font-size: 1em;">
+      <span>by {{topic.owner|capfirst}}</span> - <i>{{topic.date_added|date:"M d Y"}}.</i>
+    </div>
+  </div>
+
+  <div>
+    <a class="btn btn-secondary btn-lg btn-block py-2 px-1 my-3 mb-2" href="{% url 'blog:topics' %}"> << </a> 
+    <a class="btn btn-secondary btn-lg btn-block py-2 my-3 mb-2" href="{% url 'blog:new_answer' topic.id %}">New Answer</a>   
+  </div>
+
+  <div class="mr-4 mt-2 pb-2 pt-3 border-custom-lines">
+    <ul style="list-style:none;">  
+      ╦ <br>
+      {% for answer in answers %}
+      ║
+      <li>
+        <div>
+              <div class="d-inline-flex">
+              <span class="ml-0 mb-md-0" style="margin-right:1em;" > ║</span>
+              {% if user.username == answer.answer_user %}
+                <span class="" style="font-weight: bold; color: #620808; opacity: .85"><u>»{{answer.answer_user|capfirst}}«</u></span>
+                <span class="mx-1 text-black"><small>{{answer.date_added|date:"M d, Y" }}</small></span>
+
+                  <form class="mb-0"action="{% url 'blog:delete_answer' answer.id %}" method="post">
+                    {% csrf_token %}
+                    <!--Edit and Delete buttons-->
+                    <a class="btn border text-white py-0 px-1 bg-secondary" 
+                    style="text-decoration: none; font-size: 12px;" 
+                    href="{% url 'blog:edit_answer' answer.id %}">✎ Edit</a>
+                    
+                    <button class="btn border text-white py-0 px-1 bg-secondary"
+                    style="text-decoration: none; font-size: 12px;" > ✂ Delete </button>
+                  </form> 
+              {% else %}
+                <span class="user-answer-text" style="font-weight: bolder;" >{{answer.answer_user}}</span>
+                <span class="mx-2"><small>{{answer.date_added|date:"M d, Y" }}</small></span>
+                <a class="link-custom-edit"></a>
+              {% endif %}
+              </div>
+        </div>
+        <div style="display: flex; align-items: left;">
+          <span class="" style="display: flex; align-items: center;">╠═<br>║</span>
+          <p class="card-answer-left" style="border-bottom: 3px dashed gray;">{{answer.answer_text}}</p>
+        </div>
+      </li>
+      {% empty %}
+        <li> ╚ There are no answers to show-</li>
+      {% endfor %}
+      ╩
+    </ul>
+  </div>
+
+
+{% endblock content %}
+
+{% block extrastyles %}
+ <link rel="stylesheet" href="{% static 'css/topic.css' %}" >
+{% endblock extrastyles %}

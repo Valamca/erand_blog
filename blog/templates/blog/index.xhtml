@@ -1,0 +1,41 @@
+{% extends "blog/base.xhtml" %}
+
+{% block page_header %}
+{% load static %}
+
+<div class="p-3 mb-4 bg-light border rounded-3">
+  <!-- The inner div is a container that changes with the size of the window.
+  has:
+  container-fluid: This selector gives its behavior of changes.
+  py-4: add padding to the TOP and BOTTOM of the div-->
+  <div class="container-fluid py-4">
+    <h1 class="display-2"> Bienvenido a este lindo blog en desarrollo.... </h1>
+    <!-- Lead: meant to stand out from regular paragraphs -->
+    <p class="lead">
+        Bendito sea el Steampunk, las recetas de cocina, el chisme del día, 
+        saber sí ella de verdad me ama o que tal saber porque en ese país comen
+        tanto pincante....
+    </p> 
+    <!-- 
+    btn: Its a button.
+    btn-primary:  define a primary color.
+    btn-lg: create a LARGE button.
+    mt-1: Add a Margin TOP pequeño-->
+    {% if not user.is_authenticated %}  
+    <a class="btn btn-secondary btn-lg mt-1 color_custom_1" href="{% url 'accounts:register' %}">
+      Register &raquo;
+    </a>
+    {% else %}
+    <a class="btn btn-secondary btn-lg mt-1 color_custom_1" href="{% url 'blog:new_topic' %}">
+      Nuevo tema &raquo;
+    </a>
+    {% endif %}
+  </div>
+</div>
+{% endblock page_header %}
+
+{% block extrastyles %}
+ <link rel="stylesheets" href="{% static 'css/base.css' %}">
+{% endblock extrastyles %}
+
+

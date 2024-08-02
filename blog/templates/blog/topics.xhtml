@@ -1,0 +1,66 @@
+{% extends "blog/base.xhtml" %}
+
+{% block content %}
+
+<div class="font-type">
+  <div class="p-md-3 mb-2 rounded text-body-emphasis header-card">
+    <div class="mb-0">
+      <h1 class="display-4 fst-italic header-text">¡Explora nuestros temas!</h1>
+      <p class="lead header-text">Bienvenido, aquí donde la conversación cobra vida. 
+       Aquí encontrarás una variedad de temas interesantes y relevantes que hemos 
+      explorado y discutido. Desde tecnología hasta arte, pasando por ciencia y 
+      cultura, cada tema está diseñado para inspirar, informar y conectar.
+      </p>
+      <!--<p class="lead mb-0">
+        <a href="{% url 'blog:new_topic' %}" class="fw-bold header-text border rounded-3 py-2 px-2">
+        Crea un tema  &raquo;</a>
+      </p>-->
+      <a class="btn lead btn-secondary btn-lg mt-1" href="{% url 'blog:new_topic' %}">
+        Crear un tema..
+      </a>
+    </div>
+  </div>
+
+  <div class="row mb-1">
+    {% for topic in topics %}
+    {% load static %}
+      <div class="col-md-6">
+        <div class="row g-0 border border-2 border-secondary rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative card-topic">
+          <div class="col p-4 d-flex flex-column position-static">
+            <h2 class="mb-0 card-title">{{topic.post_title}}</h2>
+            {% if topic.post_text > '100' %}
+              <p class="card-text mb-auto card-text pd-2 py-2"> {{topic.post_text|slice:":100"}}...
+              </p>
+            {% else %}
+              <p class="card-text mb-auto"> {{topic.post_text}} </p>
+            {% endif %}
+            <!--<strong class="d-inline-block mb-2 card-user">{{topic.post_user|capfirst}}</strong>-->
+            <a href="{% url 'blog:topic' topic.id %}" class="icon-link gap-1 icon-link-hover stretched-link card-link">
+              Continue reading...
+              <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+            </a>
+            <div class="card-date text-end"> {{topic.post_user|capfirst}} - <i>{{topic.date_added.date}}</i></div>
+          </div>
+          <!--<div class="col-auto d-none d-lg-block position-relative">
+            <img src="{% static 'images/logo.svg' %}" class="position-relative" alt="logo" style="max-width: 12%;">
+            <svg class="bd-placeholder-img" width="100" height="125" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".2em">Profile</text></svg>
+          
+          </div>-->
+        </div>
+      </div>
+    {% if forloop.counter|divisibleby:2 %}
+    </div><div class="row mb-2">
+    {% endif %} 
+  {% empty %}
+      <div class="col">
+        <p>No topics have been added yet.</p>
+      </div>
+  {% endfor %}
+
+</div>
+
+{% endblock content %}
+
+{% block extrastyles %}
+ <link rel="stylesheet" href="{% static 'css/topics.css' %}">
+{% endblock extrastyles %}

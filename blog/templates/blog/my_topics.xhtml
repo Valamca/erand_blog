@@ -1,0 +1,49 @@
+{% extends 'blog/base.xhtml' %}
+
+{% block page_header %}
+    <div class="display-6 py-3"> Your Topics,  <b>{{user.username|capfirst}}</b>.. 
+    </div>
+    <div style="border-bottom: 5px dashed #620808;">
+    </div>
+{% endblock page_header %}
+
+{% block content %}
+<div class="pt-4">
+  {% for topic in topics %}
+      <div class="row flex-md-row overflow-hidden flex-md-row justify-content-start py-4 ">
+        <div class="card col-12 d-flex flex-column mx-0 px-0">
+          <div class="card-header py-0 pl-1" style="background-color: #620808; color: #F7F7F7; opacity: 0.9; font-size: 12px;">
+            <div class="row align-items-center justify-content-center" style="height: 2.8em">
+              <div class="col-md-6">
+              <p class="card-title text-center" style="font-size:x-large;">{{topic.post_title}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body text-center">
+            <p class="card-text lead">{{topic.post_text}}</p>
+            <div class="text-center">
+              <form action="{% url 'blog:delete_topic' topic.id %}" method="post">
+                {% csrf_token %}
+                <a href="{% url 'blog:topic' topic.id %}" class="btn btn-md mx-2 px-5" 
+                  style="color: #F7F7F7; background-color: #620808; border-color: #620808;">Topic</a>
+                <a href="{% url 'blog:edit_topic' topic.id %}" class="btn btn-md mx-2 px-3" 
+                  style="color: #F7F7F7; background-color: #413f3f; border-color: #620808;">Edit Topic</a>
+                  <button class="btn btn-md border text-white mx-2 px-3 bg-secondary"
+                    style="padding-left: 1em;" > ✂ Delete </button>
+              </form>
+            </div>  
+          </div>
+          <div class="card-footer pb-0 mb-0 py-0 text-end">
+            <p class="mb-0">{{topic.date_added}}</p>
+          </div>
+        </div>
+      </div>
+  {% empty %}
+  <div class="col">
+    <p>No topics have been added yet.</p>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

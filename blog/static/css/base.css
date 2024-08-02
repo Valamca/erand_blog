@@ -1,0 +1,30 @@
+@font-face {
+  font-family: "Bohemian_Typewriter";
+  src: url('/fonts/Bohemian_Typewriter.ttf')
+  format('truetype');
+}
+
+.font-type {
+  font-family: 'Bohemian_Typewriter', monospace;
+}
+
+.bar-color{
+  background-color: #620808;
+}
+
+.white-text-color{
+  color: #F7F7F7 !important;
+  --bs-nav-link-color: #F7F7F7;
+}
+
+.color_custom_1 {
+    --bs-btn-color: #F7F7F7 !important; /* Color del texto del botón */
+    --bs-btn-bg: #5c636a !important; /* Color de fondo del botón */
+    --bs-btn-hover-bg: #620808 !important;
+    --bs-btn-hover-color: #F7F7F7 !important;
+    --bs-border-color:#5c636a !important;
+  }
+
+.my-topics{
+  border-bottom: 1px dashed #F7F7F7 !important;
+}

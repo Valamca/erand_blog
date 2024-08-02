@@ -1,0 +1,45 @@
+hr {
+    width: -webkit-fill-available;
+    height: 0;
+    opacity: 1;
+    border-top: 4px dashed #691c1c !important;
+}
+
+.border-custom-lines{
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='21' ry='21' stroke='black' stroke-width='3' stroke-dasharray='11%2c 22%2c 7' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    border-radius: 21px;
+}
+
+.text-post-header{
+    color: #620808;
+    font-weight:bolder;
+}
+
+.user-name-date{
+    font-weight: bolder;
+    color: #8b9499;
+}
+
+.user-answer-text{
+    font-weight: bolder; 
+    font-size: 16px;
+}
+.user-answer-text-date{
+    font-size: 14px;
+    word-spacing: -0.3em;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+p.card-answer-left{
+    display: inline-flex;
+    margin-left: 5px;
+    align-items:top;
+    justify-content: center;
+}
+
+a {
+    color: #620808;
+}

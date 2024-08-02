@@ -1,0 +1,40 @@
+.header-card{
+    background-color:#f8f9fa !important;
+}
+
+.header-text{
+    color: #141313;
+    font-weight:500;
+    text-decoration: none;
+}
+
+.header-boton {
+    background-color: green;
+}
+
+.card-topic{
+    border-color: #b0bec5 !important;
+
+}
+
+.card-user{
+    color: #620808;
+}
+
+.card-title{
+    color: #620808;
+}
+
+.card-text {
+    color: #ad2e2e;
+    font-size: medium;
+}
+
+.card-date {
+    font-size:12px;
+}
+
+.card-link {
+    color: black;
+    text-decoration: none;
+}
